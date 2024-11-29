@@ -1,0 +1,23 @@
+
+sequenceDiagram
+    participant U as User
+    participant V as Vault
+    participant VE as Vesting
+    U->>V: deposit(amount)
+    V->>VE: calculateVestedAmount(address)
+    VE-->>V: vestedAmount
+    V-->>U: confirmation
+    U->>V: withdraw(amount)
+    V->>VE: calculateUnvestedAmount(address)
+    VE-->>V: unvestedAmount
+    V-->>U: tokensReleased
+    U->>V: getBalance(address)
+    V-->>U: balance
+    U->>V: getVestingSchedule(address)
+    V-->>U: vestingSchedule
+    Admin->>V: pause()
+    V-->>Admin: confirmation
+    Admin->>V: unpause()
+    V-->>Admin: confirmation
+    Admin->>VE: updateVestingParameters(duration, intervals)
+    VE-->>Admin: confirmation

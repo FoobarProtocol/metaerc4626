@@ -1,0 +1,31 @@
+
+classDiagram
+    class Vault {
+        +deposit(amount: uint256) void
+        +withdraw(amount: uint256) void
+        +getBalance(address: address) uint256
+        +getVestingSchedule(address: address) VestingSchedule
+        +pause() void
+        +unpause() void
+        -calculateShares(amount: uint256) uint256
+        -calculateAssets(shares: uint256) uint256
+    }
+    class Vesting {
+        +calculateVestedAmount(address: address) uint256
+        +calculateUnvestedAmount(address: address) uint256
+        +updateVestingParameters(duration: uint256, intervals: uint256) void
+        -linearVestingCalculation(startTime: uint256, cliff: uint256, duration: uint256) uint256
+    }
+    class IVault {
+        +deposit(amount: uint256) void
+        +withdraw(amount: uint256) void
+        +getBalance(address: address) uint256
+        +getVestingSchedule(address: address) VestingSchedule
+    }
+    class IVesting {
+        +calculateVestedAmount(address: address) uint256
+        +calculateUnvestedAmount(address: address) uint256
+    }
+    Vault --> IVault
+    Vesting --> IVesting
+    Vault --> Vesting
